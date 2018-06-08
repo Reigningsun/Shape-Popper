@@ -33,7 +33,7 @@ public class Bubble implements Shape{
 	// ======================== Functionality ==============================================================================================================================
 
 	@Override
-	public void move(double dx, double dy) {									// Moves this Bubble
+	public void move(double dx, double dy) {								// Moves this Bubble
 		circle.setCenterY(circle.getCenterY()+dy);
 		circle.setCenterX(circle.getCenterX()+dx);	
 	}
@@ -50,7 +50,7 @@ public class Bubble implements Shape{
 	
 	
 	@Override
-	public void setColor(Color color) {											// Sets Bubbles fill color
+	public void setColor(Color color) {									// Sets Bubbles fill color
 		circle.setFill(color);
 	}
 	// =====================================================================================================================================================================
