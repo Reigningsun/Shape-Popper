@@ -15,13 +15,13 @@ import javafx.stage.Stage;
 public class GUI_Controller extends Application {
 
 	// ========================= Variables and Constants ===================================================================================================================
-	AnchorPane root;																				// Anchor pane
-	Point2D clickPoint;																				// Current cursor position
-	Point2D lastPosition = null;																	// Tracks previous position of cursor
-	Shape activeComponent;																			// Object beneath cursor 
-	Shape objAtRelease;																				// Object beneath cursor and beneath activeComponent
-	Boolean inDragMode = false;																		// Stores current state of dragging
-	ArrayList<Shape> components = new ArrayList<Shape>();											// Stores all Shapes currently in scene
+	AnchorPane root;													// Anchor pane
+	Point2D clickPoint;													// Current cursor position
+	Point2D lastPosition = null;												// Tracks previous position of cursor
+	Shape activeComponent;													// Object beneath cursor 
+	Shape objAtRelease;													// Object beneath cursor and beneath activeComponent
+	Boolean inDragMode = false;												// Stores current state of dragging
+	ArrayList<Shape> components = new ArrayList<Shape>();									// Stores all Shapes currently in scene
 	// =====================================================================================================================================================================
 	
 	
@@ -34,12 +34,12 @@ public class GUI_Controller extends Application {
 			clickPoint = new Point2D(mouseEvent.getX(), mouseEvent.getY());
 			String eventName = mouseEvent.getEventType().getName();
 			
-			if(!inDragMode){																		// While not in drag mode the active component is 
-				activeComponent = getCurrentShape();												// whatever is under the cursor
+			if(!inDragMode){											// While not in drag mode the active component is 
+				activeComponent = getCurrentShape();								// whatever is under the cursor
 			}
 			
-			if (inDragMode){																		// Stores object under cursor that is not the 
-				objAtRelease = getObjAtRelease();													// activeComponent during drag
+			if (inDragMode){											// Stores object under cursor that is not the 
+				objAtRelease = getObjAtRelease();								// activeComponent during drag
 			}
 			
 			
@@ -47,8 +47,8 @@ public class GUI_Controller extends Application {
 			
 			switch (eventName){
 			
-			case("MOUSE_DRAGGED"):																	// Calculates and initiates Shape movement during 
-				if(lastPosition != null){															// mouse drag event
+			case("MOUSE_DRAGGED"):											// Calculates and initiates Shape movement during 
+				if(lastPosition != null){									// mouse drag event
 					double deltaX = clickPoint.getX()-lastPosition.getX();
 					double deltaY = clickPoint.getY()-lastPosition.getY();
 					activeComponent.move(deltaX, deltaY);						
@@ -58,37 +58,37 @@ public class GUI_Controller extends Application {
 			
 				
 			case("MOUSE_RELEASED"):																 
-				if (inDragMode){																	// Determine what to do with dragged Shape
-					objAtRelease = getObjAtRelease();												// Determine what Shape is beneath the activeComponent
-					addToContainerIfApplicable(objAtRelease, activeComponent);						// Adds Shape to a container if applicable
+				if (inDragMode){										// Determine what to do with dragged Shape
+					objAtRelease = getObjAtRelease();							// Determine what Shape is beneath the activeComponent
+					addToContainerIfApplicable(objAtRelease, activeComponent);				// Adds Shape to a container if applicable
 					
-					objAtRelease = getObjAtRelease(); 												// Required to select objects that are layered
-					removeFromContainerIfApplicable(objAtRelease, activeComponent);					// Removes Shape from containers when it is applicable
+					objAtRelease = getObjAtRelease(); 							// Required to select objects that are layered
+					removeFromContainerIfApplicable(objAtRelease, activeComponent);				// Removes Shape from containers when it is applicable
 					
-				} else {																			// Creates new Shapes based on mouse button pressed
+				} else {											// Creates new Shapes based on mouse button pressed
 					if (getCurrentShape() == null){
-						if (mouseEvent.getButton() == MouseButton.PRIMARY){							// Creates a black Bubble when left mouse button pressed
+						if (mouseEvent.getButton() == MouseButton.PRIMARY){				// Creates a black Bubble when left mouse button pressed
 							Bubble bubble = new Bubble(clickPoint, Color.BLACK, true);
-							addBubble(bubble);														// Adds the bubble to scene and starts mouse handling
+							addBubble(bubble);							// Adds the bubble to scene and starts mouse handling
 						} else {
 							Container container = new Container(clickPoint, randomColor(), true);	// Creates a randomly colored Container
-							addContainer(container);												// Adds the Container to scene and starts mouse handling
+							addContainer(container);						// Adds the Container to scene and starts mouse handling
 						}
 					}
-					activeComponent = null;															// Clears activeComponent variable
+					activeComponent = null;									// Clears activeComponent variable
 				}
 			
-				inDragMode = false;																	// Indicates drag event has ended
+				inDragMode = false;										// Indicates drag event has ended
 				break;
 			
 				
 			case("MOUSE_PRESSED"):
-				inDragMode = false;																	// Indicates drag event has ended
+				inDragMode = false;										// Indicates drag event has ended
 				break;
 				
 
 			}
-			lastPosition = clickPoint;																// Updates lastPosition for future movement
+			lastPosition = clickPoint;										// Updates lastPosition for future movement
 		}
 	};
 	// ===================================================================================================================================================================================
@@ -98,11 +98,11 @@ public class GUI_Controller extends Application {
 	
 	// =========================== Return Shape ==========================================================================================================================================
 
-	private Shape getCurrentShape(){																// Returns the object under the mouse cursor
+	private Shape getCurrentShape(){											// Returns the object under the mouse cursor
 		activeComponent = null;
 		for(Shape thing : components){
-			if (thing.ContainsPoint(clickPoint) && thing != activeComponent){						// Returns the first non-null Shape in components
-				activeComponent = thing;															// that is at click point
+			if (thing.ContainsPoint(clickPoint) && thing != activeComponent){					// Returns the first non-null Shape in components
+				activeComponent = thing;									// that is at click point
 				break;
 			}
 		}
@@ -112,9 +112,9 @@ public class GUI_Controller extends Application {
 
 
 	
-	private Shape getObjAtRelease(){																// Returns object under the currently activeComponent
-		objAtRelease = null;																		// Does not set activeComponent to null, allowing it 
-		for (Shape thing : components){																// Find Shape at this click point that isn't the activeComponent
+	private Shape getObjAtRelease(){											// Returns object under the currently activeComponent
+		objAtRelease = null;												// Does not set activeComponent to null, allowing it 
+		for (Shape thing : components){											// Find Shape at this click point that isn't the activeComponent
 			if (thing.ContainsPoint(clickPoint) && thing != activeComponent){
 				objAtRelease = thing;
 				break;
@@ -129,7 +129,7 @@ public class GUI_Controller extends Application {
 	
 	// ========================= Generates a random color for shapes =======================================================================================================
 	
-	private Color randomColor(){																	// returns slightly transparent random color
+	private Color randomColor(){												// returns slightly transparent random color
 		Random rand = new Random();
 		int red = rand.nextInt(255);
 		int green = rand.nextInt(255);
@@ -144,7 +144,7 @@ public class GUI_Controller extends Application {
 	
 	// ======================== Add to or Remove from Containers ===========================================================================================================
 	
-	private void addToContainerIfApplicable(Shape objAtRelease, Shape activeComponent){				// If activeComponent is dropped onto a container add it
+	private void addToContainerIfApplicable(Shape objAtRelease, Shape activeComponent){					// If activeComponent is dropped onto a container add it
 		if (objAtRelease instanceof Container && objAtRelease != activeComponent){					// Prevents infinite loop of adding a container to itself
 			((Container) objAtRelease).addTo(activeComponent);
 		}
@@ -153,17 +153,17 @@ public class GUI_Controller extends Application {
 	
 	
 	
-	private void removeFromContainerIfApplicable(Shape objAtRelease, Shape activeComponent) {		// Removes a shape from a container if it is dragged out
-		if (objAtRelease == null && activeComponent != null){										// If a Shape is dragged into empty space remove it 
-			for (Shape thing : components){															// from all containers
+	private void removeFromContainerIfApplicable(Shape objAtRelease, Shape activeComponent) {				// Removes a shape from a container if it is dragged out
+		if (objAtRelease == null && activeComponent != null){								// If a Shape is dragged into empty space remove it 
+			for (Shape thing : components){										// from all containers
 				if (thing instanceof Container){
 					((Container) thing).removeFrom(activeComponent);
 				}
 			}
-			if (activeComponent instanceof Bubble){													// Removed Bubbles revert to Black color
+			if (activeComponent instanceof Bubble){									// Removed Bubbles revert to Black color
 				activeComponent.setColor(Color.BLACK);
 			}
-			if (activeComponent instanceof Container){												// Removed Containers and contents revert to original color
+			if (activeComponent instanceof Container){								// Removed Containers and contents revert to original color
 				activeComponent.setColor(((Container) activeComponent).originalColor);
 			}
 		}
@@ -209,7 +209,7 @@ public class GUI_Controller extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		root  = new AnchorPane();
 		Scene scene = new Scene(root, 1500, 900);
-		scene.setOnMouseReleased(mouseHandler);														// Needed to handle mouse events in empty space
+		scene.setOnMouseReleased(mouseHandler);										// Needed to handle mouse events in empty space
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
