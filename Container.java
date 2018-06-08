@@ -9,10 +9,10 @@ import javafx.scene.shape.Rectangle;
 public class Container implements Shape{
 
 	// ========================= Variables and Constants ===================================================================================================================
-	ArrayList<Shape> contents = new ArrayList<Shape>();									// Stores all Shapes currently contained in this object
-	private Rectangle rect;																// Rectangle shape
-	Color color;																		// Current fill color of Rectangle
-	Color originalColor;																// Original fill color of Rectangle
+	ArrayList<Shape> contents = new ArrayList<Shape>();							// Stores all Shapes currently contained in this object
+	private Rectangle rect;											// Rectangle shape
+	Color color;												// Current fill color of Rectangle
+	Color originalColor;											// Original fill color of Rectangle
 	// =====================================================================================================================================================================
 
 
@@ -39,12 +39,12 @@ public class Container implements Shape{
 	// ======================== Functionality ==============================================================================================================================
 	
 	@Override
-	public void move(double dx, double dy) {											// Moves Container and its contents
+	public void move(double dx, double dy) {								// Moves Container and its contents
 		rect.setX(rect.getX() + dx);
 		rect.setY(rect.getY() + dy);
 		
 		Iterator<Shape> item = contents.iterator();						
-		while (item.hasNext()){															// Moves all contents of Container along with it
+		while (item.hasNext()){										// Moves all contents of Container along with it
 			Shape content = (Shape) item.next();
 			content.move(dx, dy);
 		}
@@ -55,7 +55,7 @@ public class Container implements Shape{
 	
 	
 	@Override
-	public boolean ContainsPoint(Point2D point) {										// Determines if cursor is in this Shape
+	public boolean ContainsPoint(Point2D point) {								// Determines if cursor is in this Shape
 		return rect.contains(point);
 	}
 
@@ -63,8 +63,8 @@ public class Container implements Shape{
 	
 	
 	@Override
-	public void setColor(Color color) {													// Sets Rectangle fill color and changes the 
-		rect.setFill(color);															// color of all contents to match
+	public void setColor(Color color) {									// Sets Rectangle fill color and changes the 
+		rect.setFill(color);										// color of all contents to match
 		this.color = color;
 		Iterator<Shape> things = contents.iterator();
 		while (things.hasNext()){
@@ -76,15 +76,15 @@ public class Container implements Shape{
 	
 	
 	
-	public void addTo(Shape shape){														// Adds new shape to contents and sets its color 
-		contents.add(shape);															// to match the containers current color
+	public void addTo(Shape shape){										// Adds new shape to contents and sets its color 
+		contents.add(shape);										// to match the containers current color
 		shape.setColor(color);
 	}
 	
 	
 	
 	
-	public void removeFrom(Shape shape){												// Removes the Shape from this container
+	public void removeFrom(Shape shape){									// Removes the Shape from this container
 		contents.remove(shape);
 	}
 	// =====================================================================================================================================================================
