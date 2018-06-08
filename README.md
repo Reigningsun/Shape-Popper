@@ -1,0 +1,2 @@
+# Shape-Popper
+Homework assignment for Object Oriented Software Development. The challenge was to create a simple GUI that allowed the user to click and create small circles of different colors. They could also create containers with different colors. If circles are dragged into a container they gain the color of the container, and if they are removed from the container they regain their original color.
